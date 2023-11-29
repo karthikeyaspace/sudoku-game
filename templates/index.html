@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUDOKU</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <form action="/" method="POST">
+        <div id="sudoku-board">
+            <form method="POST" action="/">
+                {% for row in range(9) %}
+                  {% for col in range(9) %}
+                    {% set cell_value = sudoku_board[row][col] if sudoku_board[row][col]!=0 else ""%}
+                    {% set cell_name = "cell-" ~ row ~ "-" ~ col %}
+                    {% set cell_class = "cell c-" ~ row ~ "-" ~ col %}
+                    <input type="number" min="1" max="9" class="{{ cell_class }}" value="{{ cell_value }}" name="{{ cell_name }}">
+                  {% endfor %}
+                  <br>
+                {% endfor %}
+                <input type="submit" value="Submit" class="btn-3">
+            </form>
+        </div>
+    </form>
+
+    <span class="status">
+        <table>
+            <tr>
+                <td>STATUS:</td>
+                <td>{{status['status']}}</td>
+            </tr>
+            <tr>
+                <td>SCORE:</td>
+                <td>{{status['score']}}</td>
+            </tr>
+        </table>
+    </span>
+
+    <ul class="btn">
+    <li>
+        <form action="/newgame" method="POST">
+            <input type="submit" value="New Game" class="btn-1">
+        </form>
+    </li>
+    <br>
+    <li>
+        <form action="/solve" method="POST">
+            <input type="submit" value="Solve" class="btn-2">
+        </form>
+    </li>
+    </ul>
+   
+
+</body>
+</html>
